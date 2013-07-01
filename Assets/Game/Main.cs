@@ -3,6 +3,7 @@ using System.Collections;
 
 public enum Scenes
 {
+	NONE,
 	GAME
 }
 
@@ -18,6 +19,8 @@ public class Main : MonoBehaviour
 	void Start ()
 	{
 		instance = this;
+		
+		_currentSceneID = Scenes.NONE;
 		
 		FutileParams fparams = new FutileParams(true,true,true,false);
 		fparams.AddResolutionLevel(480.0f,	2.0f,	2.0f,	"");
