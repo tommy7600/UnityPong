@@ -5,17 +5,46 @@ public class Computer : Paddle
 {
 	
 	private Ball _ball = null;
+	private float _speed;
 	
 	public Computer () : base ( "computer" )
 	{
-		
+		_speed = 75.0f;
 	}
 	
 	public override void Update ()
 	{	
 		if ( _ball != null )
 		{
-			this.y = _ball.y;
+			if ( _ball.velocity.x > 0 )
+			{
+				float y = _ball.y;
+			
+				if ( y - this.y > 0 )
+				{
+					y = Time.deltaTime * _speed + this.y;
+				}
+				else
+				{
+					y = -Time.deltaTime * _speed + this.y;
+				}
+			
+				float maxY 	= y + this.height/2;
+				float minY 	= y - this.height/2;
+			
+				if (this.VerticalWallCollision ( this.x, maxY ) )
+				{
+					this.y = Futile.screen.halfHeight - this.height/2;
+				}
+				else if (this.VerticalWallCollision ( this.x, minY ) )
+				{
+					this.y = -Futile.screen.halfHeight + this.height/2;
+				}
+				else
+				{
+					this.y = y;	
+				}
+			}
 		}
 		
 		base.Update ();	

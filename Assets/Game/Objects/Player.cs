@@ -7,7 +7,7 @@ public class Player : Paddle
 	
 	public Player () : base ( "player" )
 	{
-		_speed = 100;
+		_speed = 75.0f;
 	}
 	
 	public override void Update ()

@@ -15,7 +15,7 @@ public class Ball : FSprite
 		_velocity 		= new Vector2 ( 0.0f, 0.0f );
 		_acceleration 	= new Vector2 ( 0.0f, 0.0f );
 		_angle 			= 0;
-		_maxVelocity	= 50.0f;
+		_maxVelocity	= 100.0f;
 	}
 	
 	public void Reset ()
@@ -24,9 +24,13 @@ public class Ball : FSprite
 		_acceleration 	= new Vector2 ( 0.0f, 0.0f );
 		
 		// need a random angle from 0 - 45 degrees
-		
 		_angle = Mathf.PI / 4 * RXRandom.Float ();
 		
+		// reset position
+		this.x = 0;
+		this.y = 0;
+		
+		// reset velocity
 		_velocity.x = -_maxVelocity * Mathf.Cos ( _angle );
 		_velocity.y = _maxVelocity * Mathf.Sin ( _angle );
 		
@@ -50,21 +54,25 @@ public class Ball : FSprite
 		{
 			_velocity.x = - _velocity.x;
 		}
-		else if ( !this.VerticalWallCollision ( newX, newY ) && !this.HorizontalWallCollision (newX, newY ) )
+		else if ( this.HorizontalWallCollision (newX, newY ) )
+		{
+			this.Reset ();
+		}
+		else if ( !this.VerticalWallCollision ( newX, newY ) )
 		{
 			this.x = newX;
 			this.y = newY;
 		}
 		else
-		{
-			
+		{	
 			if ( this.HorizontalWallCollision ( newX, newY ) )
 			{
 				_velocity.x = -_velocity.x;
-			} else {
+			}
+			else
+			{
 				_velocity.y = -_velocity.y;
 			}
-				
 		}
 	}
 	
@@ -102,6 +110,13 @@ public class Ball : FSprite
 		get { return _player2; }
 		
 		set { _player2 = value; }
+	}
+	
+	public Vector2 velocity
+	{
+		get { return _velocity; }
+		
+		set { _velocity = value; }
 	}
 }
 
