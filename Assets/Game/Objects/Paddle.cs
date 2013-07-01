@@ -10,10 +10,22 @@ public class Paddle : FSprite
 	{
 		this._name = name;
 		_score = 0;
+ 
 	}
 	
 	virtual public void Update ()
 	{
+	}
+	
+	protected bool VerticalWallCollision ( float x, float y )
+	{
+		if ( y < Futile.screen.halfHeight
+			&& y > - Futile.screen.halfHeight )
+		{
+			return false;
+		}
+			
+		return true;
 	}
 }
 

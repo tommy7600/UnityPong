@@ -18,6 +18,9 @@ public class GameScene : Scene
 		
 		_computer.ball = _ball;
 		
+		_ball.player1 = _player;
+		_ball.player2 = _computer;
+		
 		AddChild ( _player );
 		AddChild ( _computer );
 		AddChild ( _ball );

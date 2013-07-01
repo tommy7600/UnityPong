@@ -12,14 +12,13 @@ public class Computer : Paddle
 	}
 	
 	public override void Update ()
-	{
-		base.Update ();
-		
+	{	
 		if ( _ball != null )
 		{
 			this.y = _ball.y;
 		}
 		
+		base.Update ();	
 	}
 	
 	public Ball ball

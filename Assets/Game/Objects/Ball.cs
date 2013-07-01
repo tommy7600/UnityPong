@@ -3,10 +3,13 @@ using System.Collections;
 
 public class Ball : FSprite
 {
-	private Vector2 _velocity;
-	private Vector2 _acceleration;
-	private float	_angle; // radians
-	private float	_maxVelocity;
+	private Vector2 	_velocity;
+	private Vector2 	_acceleration;
+	private float		_angle; // radians
+	private float		_maxVelocity;
+	private Paddle		_player1;
+	private Paddle		_player2;
+	
 	public Ball () : base ( "ball" )
 	{
 		_velocity 		= new Vector2 ( 0.0f, 0.0f );
@@ -39,7 +42,15 @@ public class Ball : FSprite
 		float newX = _velocity.x * dt + this.x;
 		float newY = _velocity.y * dt + this.y;
 		
-		if ( !this.VerticalWallCollsion ( newX, newY ) && !this.HorizontalWallCollision (newX, newY ) )
+		Rect ballRect		= this.localRect.CloneAndOffset(newX, newY);
+		Rect player1Rect	= _player1.localRect.CloneAndOffset ( _player1.x, _player1.y );
+		Rect player2Rect	= _player2.localRect.CloneAndOffset ( _player2.x, _player2.y );
+		
+		if ( ballRect.CheckIntersect ( player1Rect ) || ballRect.CheckIntersect ( player2Rect ) )
+		{
+			_velocity.x = - _velocity.x;
+		}
+		else if ( !this.VerticalWallCollision ( newX, newY ) && !this.HorizontalWallCollision (newX, newY ) )
 		{
 			this.x = newX;
 			this.y = newY;
@@ -47,7 +58,7 @@ public class Ball : FSprite
 		else
 		{
 			
-			if ( this.VerticalWallCollsion ( newX, newY ) )
+			if ( this.HorizontalWallCollision ( newX, newY ) )
 			{
 				_velocity.x = -_velocity.x;
 			} else {
@@ -57,7 +68,7 @@ public class Ball : FSprite
 		}
 	}
 	
-	private bool VerticalWallCollsion ( float x, float y )
+	private bool HorizontalWallCollision ( float x, float y )
 	{
 		if ( x < Futile.screen.halfWidth 
 			&& x > - Futile.screen.halfWidth )
@@ -68,7 +79,7 @@ public class Ball : FSprite
 		return true;
 	}
 	
-	private bool HorizontalWallCollision ( float x, float y )
+	private bool VerticalWallCollision ( float x, float y )
 	{
 		if ( y < Futile.screen.halfHeight
 			&& y > - Futile.screen.halfHeight )
@@ -77,6 +88,20 @@ public class Ball : FSprite
 		}
 			
 		return true;
+	}
+	
+	public Paddle player1
+	{
+		get { return _player1; }
+		
+		set { _player1 = value; }
+	}
+	
+	public Paddle player2
+	{
+		get { return _player2; }
+		
+		set { _player2 = value; }
 	}
 }
 

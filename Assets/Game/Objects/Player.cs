@@ -11,12 +11,27 @@ public class Player : Paddle
 	}
 	
 	public override void Update ()
-	{
-		base.Update ();
-		
+	{	
 		float vertical = Input.GetAxis ( "Vertical" );
 		
-		this.y += vertical * Time.deltaTime * _speed;
+		float y		= vertical * Time.deltaTime * _speed + this.y;
+		float maxY 	= y + this.height/2;
+		float minY 	= y - this.height/2;
+		
+		if (this.VerticalWallCollision ( this.x, maxY ) )
+		{
+			this.y = Futile.screen.halfHeight - this.height/2;
+		}
+		else if (this.VerticalWallCollision ( this.x, minY ) )
+		{
+			this.y = -Futile.screen.halfHeight + this.height/2;
+		}
+		else
+		{
+			this.y = y;	
+		}
+		
+		base.Update ();
 	}
 	
 }
