@@ -14,37 +14,35 @@ public class Computer : Paddle
 	
 	public override void Update ()
 	{	
-		if ( _ball != null )
+		if ( _ball != null && _ball.velocity.x > 0 )
 		{
-			if ( _ball.velocity.x > 0 )
+			float y = _ball.y;
+			
+			if ( y - this.y > 0 )
 			{
-				float y = _ball.y;
-			
-				if ( y - this.y > 0 )
-				{
-					y = Time.deltaTime * _speed + this.y;
-				}
-				else
-				{
-					y = -Time.deltaTime * _speed + this.y;
-				}
-			
-				float maxY 	= y + this.height/2;
-				float minY 	= y - this.height/2;
-			
-				if (this.VerticalWallCollision ( this.x, maxY ) )
-				{
-					this.y = Futile.screen.halfHeight - this.height/2;
-				}
-				else if (this.VerticalWallCollision ( this.x, minY ) )
-				{
-					this.y = -Futile.screen.halfHeight + this.height/2;
-				}
-				else
-				{
-					this.y = y;	
-				}
+				y = Time.deltaTime * _speed + this.y;
 			}
+			else
+			{
+				y = -Time.deltaTime * _speed + this.y;
+			}
+			
+			float maxY 	= y + this.height/2;
+			float minY 	= y - this.height/2;
+		
+			if (this.VerticalWallCollision ( this.x, maxY ) )
+			{
+				this.y = Futile.screen.halfHeight - this.height/2;
+			}
+			else if (this.VerticalWallCollision ( this.x, minY ) )
+			{
+				this.y = -Futile.screen.halfHeight + this.height/2;
+			}
+			else if ( this._ball.y > maxY || this._ball.y < minY )
+			{
+				this.y = y;	
+			}
+		
 		}
 		
 		base.Update ();	
