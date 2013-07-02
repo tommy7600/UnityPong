@@ -1,6 +1,10 @@
 using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Scene ids to keep track where the game currently is.
+/// </summary>
+///
 public enum Scenes
 {
     NONE,
@@ -15,26 +19,39 @@ public class Main : MonoBehaviour
     private Scenes      _currentSceneID;
     private Scene       _currentScene   = null;
     
-    // Use this for initialization
+    /// <summary>
+    /// Initialize the game
+    /// </summary>
+    ///
     void Start ()
     {
         instance = this;
-        
+
+        // say that we currently don't have a scene, needed for
+        // changing scenes
         _currentSceneID = Scenes.NONE;
-        
+
+        // create a basic futile object with a 480 resolution level
         FutileParams fparams = new FutileParams(true,true,true,false);
         fparams.AddResolutionLevel(480.0f,  2.0f,   2.0f,   "");
 
+        // set the origin at the center
         fparams.origin = new Vector2(0.5f,0.5f);
 
+        // initialize futile with its params
         Futile.instance.Init (fparams);
-        
+
+        // create a reference to the stage
         this._stage = Futile.stage;
 
-        this.GoToPage(Scenes.GAME);
+        // change scenes to the game scene
+        this.GoToScene(Scenes.GAME);
     }
     
-    // Update is called once per frame
+    /// <summary>
+    /// Updates the game.
+    /// </summary>
+    ///
     void Update ()
     {
         if ( this._currentScene != null )
@@ -45,21 +62,22 @@ public class Main : MonoBehaviour
     }
     
     /// <summary>
-    /// Gos to page.
+    /// Goes to scene.
     /// </summary>
     /// <param name='scene'>
     /// Scene.
     /// </param>
-    public void GoToPage ( Scenes scene )
+    ///
+    public void GoToScene ( Scenes scene )
     {
-        // you are trying to open the same scene again
+        // check if you are trying to open the same scene again
         if ( scene == this._currentSceneID )
         {
             Debug.Log ( "Scene is already loaded" );
             return; 
         }
         
-        // creating a new scene as null, to check if we actually have a scene by that name
+        // create a new scene as null, so that we can check if we actually have a scene by that name
         Scene newScene = null;
         
         // create the scene if we have one

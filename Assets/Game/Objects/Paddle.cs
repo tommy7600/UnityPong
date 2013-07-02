@@ -16,6 +16,7 @@ public class Paddle : FSprite
     /// <summary>
     /// Update the instance of the paddle.
     /// </summary>
+    /// 
     virtual public void Update ()
     {
     }
@@ -32,6 +33,7 @@ public class Paddle : FSprite
     /// <param name='y'>
     /// If set to <c>true</c> y.
     /// </param>
+    ///
     protected bool VerticalWallCollision ( float x, float y )
     {
         if ( y < Futile.screen.halfHeight

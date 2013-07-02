@@ -39,6 +39,7 @@ public class Ball : FSprite
     /// <summary>
     /// Update the ball's instance.
     /// </summary>
+    ///
     public void Update ()
     {
         // get the change in time
@@ -93,6 +94,7 @@ public class Ball : FSprite
     /// <param name='y'>
     /// If set to <c>true</c> y.
     /// </param>
+    ///
     private bool HorizontalWallCollision ( float x, float y )
     {
         if ( x + this.width/2 < Futile.screen.halfWidth
@@ -116,6 +118,7 @@ public class Ball : FSprite
     /// <param name='y'>
     /// If set to <c>true</c> y.
     /// </param>
+    ///
     private bool VerticalWallCollision ( float x, float y )
     {
         if ( y + this.height/2 < Futile.screen.halfHeight
@@ -133,6 +136,7 @@ public class Ball : FSprite
     /// <value>
     /// The player1.
     /// </value>
+    ///
     public Paddle player1
     {
         get { return _player1; }
@@ -146,6 +150,7 @@ public class Ball : FSprite
     /// <value>
     /// The player2.
     /// </value>
+    ///
     public Paddle player2
     {
         get { return _player2; }
@@ -159,6 +164,7 @@ public class Ball : FSprite
     /// <value>
     /// The velocity.
     /// </value>
+    /// 
     public Vector2 velocity
     {
         get { return _velocity; }

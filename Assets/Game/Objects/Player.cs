@@ -13,6 +13,7 @@ public class Player : Paddle
     /// <summary>
     /// Update the player instance.
     /// </summary>
+    /// 
     public override void Update ()
     {
         // get the input from the player for veritcal movement

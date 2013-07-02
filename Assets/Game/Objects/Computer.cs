@@ -11,7 +11,11 @@ public class Computer : Paddle
     {
         _speed = 75.0f;
     }
-    
+
+    /// <summary>
+    /// Update the instance of the paddle.
+    /// </summary>
+    ///
     public override void Update ()
     {
         // only update if the ball is moving towards the computer's paddle and
@@ -62,6 +66,7 @@ public class Computer : Paddle
     /// <value>
     /// The ball.
     /// </value>
+    ///
     public Ball ball
     {
         get { return _ball; }
